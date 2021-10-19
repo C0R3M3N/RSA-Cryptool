@@ -1,7 +1,7 @@
 ﻿
 namespace RSA_Cryptool
 {
-    partial class Form1
+    partial class Encrypt
     {
         /// <summary>
         /// Required designer variable.
@@ -51,7 +51,7 @@ namespace RSA_Cryptool
             // NhapN
             // 
             this.NhapN.Location = new System.Drawing.Point(128, 161);
-            this.NhapN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NhapN.Margin = new System.Windows.Forms.Padding(2);
             this.NhapN.Name = "NhapN";
             this.NhapN.Size = new System.Drawing.Size(76, 20);
             this.NhapN.TabIndex = 0;
@@ -60,7 +60,7 @@ namespace RSA_Cryptool
             // NhapE
             // 
             this.NhapE.Location = new System.Drawing.Point(350, 161);
-            this.NhapE.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NhapE.Margin = new System.Windows.Forms.Padding(2);
             this.NhapE.Name = "NhapE";
             this.NhapE.Size = new System.Drawing.Size(76, 20);
             this.NhapE.TabIndex = 0;
@@ -89,7 +89,7 @@ namespace RSA_Cryptool
             // plainTextBox
             // 
             this.plainTextBox.Location = new System.Drawing.Point(105, 70);
-            this.plainTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plainTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.plainTextBox.Name = "plainTextBox";
             this.plainTextBox.Size = new System.Drawing.Size(320, 79);
             this.plainTextBox.TabIndex = 2;
@@ -108,7 +108,7 @@ namespace RSA_Cryptool
             // NhapP
             // 
             this.NhapP.Location = new System.Drawing.Point(128, 206);
-            this.NhapP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NhapP.Margin = new System.Windows.Forms.Padding(2);
             this.NhapP.Name = "NhapP";
             this.NhapP.Size = new System.Drawing.Size(76, 20);
             this.NhapP.TabIndex = 0;
@@ -126,7 +126,7 @@ namespace RSA_Cryptool
             // CypherTextBox
             // 
             this.CypherTextBox.Location = new System.Drawing.Point(105, 251);
-            this.CypherTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CypherTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.CypherTextBox.Name = "CypherTextBox";
             this.CypherTextBox.Size = new System.Drawing.Size(320, 79);
             this.CypherTextBox.TabIndex = 2;
@@ -138,18 +138,18 @@ namespace RSA_Cryptool
             this.label6.Location = new System.Drawing.Point(35, 275);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 3;
-            this.label6.Text = "CypherText";
+            this.label6.Text = "CipherText";
             // 
             // button_Crypt
             // 
             this.button_Crypt.Location = new System.Drawing.Point(466, 285);
-            this.button_Crypt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_Crypt.Margin = new System.Windows.Forms.Padding(2);
             this.button_Crypt.Name = "button_Crypt";
             this.button_Crypt.Size = new System.Drawing.Size(59, 23);
             this.button_Crypt.TabIndex = 4;
-            this.button_Crypt.Text = "Crypt";
+            this.button_Crypt.Text = "Encrypt";
             this.button_Crypt.UseVisualStyleBackColor = true;
             this.button_Crypt.Click += new System.EventHandler(this.button_Crypt_Click);
             // 
@@ -216,7 +216,7 @@ namespace RSA_Cryptool
             this.label11.TabIndex = 8;
             this.label11.Text = "e:";
             // 
-            // Form1
+            // Encrypt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -238,8 +238,8 @@ namespace RSA_Cryptool
             this.Controls.Add(this.NhapP);
             this.Controls.Add(this.NhapE);
             this.Controls.Add(this.NhapN);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "Encrypt";
             this.Text = "Encryption";
             this.ResumeLayout(false);
             this.PerformLayout();

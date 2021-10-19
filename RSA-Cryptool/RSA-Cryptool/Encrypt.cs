@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace RSA_Cryptool
 {
-    public partial class Form1 : Form
+    public partial class Encrypt : Form
     {
         string M;
         List<char> C;
@@ -29,10 +29,9 @@ namespace RSA_Cryptool
             {
 
             }
-           
         }
 
-        public Form1()
+        public Encrypt()
         {
             InitializeComponent();
            
