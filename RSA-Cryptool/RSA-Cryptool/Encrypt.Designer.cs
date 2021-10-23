@@ -220,7 +220,7 @@ namespace RSA_Cryptool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(613, 381);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.NhapQ);
             this.Controls.Add(this.alert_M);

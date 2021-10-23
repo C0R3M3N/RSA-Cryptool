@@ -13,7 +13,7 @@ namespace RSA_Cryptool
     public partial class Encrypt : Form
     {
         string M;
-        List<char> C;
+        List<int> C;
         int p, q, X;
         double n, e, sn, d;
 
@@ -23,7 +23,6 @@ namespace RSA_Cryptool
             if (flag==false)
             {
                 MessageBox.Show("Your inputs are not suitable!");
-                return;
             }
             else
             {
@@ -33,21 +32,37 @@ namespace RSA_Cryptool
 
         public Encrypt()
         {
-            InitializeComponent();
-           
-          
+            InitializeComponent();            
         }
         
         private bool Check_Value()
         {
             bool flag = true;
-            if (NhapE != null) alert_e.Visible = false; else { alert_e.Visible = true; flag = false; }
-            if (NhapP == null || NhapQ == null)
+            if (NhapE.Text != "") 
+                alert_e.Visible = false; 
+            else 
+            { 
+                alert_e.Visible = true; 
+                flag = false; 
+            }
+            if (NhapP.Text == "" || NhapQ.Text == "")
             {
-                if (plainTextBox.Text != "") alert_M.Visible = false; else { alert_M.Visible = true; flag = false; }
-                if (NhapN != null) alert_n.Visible = false; else { alert_n.Visible = true; flag = false; }
+                if (plainTextBox.Text != "" ) 
+                    alert_M.Visible = false; 
+                else 
+                { 
+                    alert_M.Visible = true; 
+                    flag = false; 
+                }
+                if (NhapN.Text != "") 
+                    alert_n.Visible = false; 
+                else 
+                { 
+                    alert_n.Visible = true; 
+                    flag = false; 
+                }
 
-                if (alert_n != null && alert_e != null && alert_M != null)
+                if (NhapN.Text != "" && NhapE.Text != "" && plainTextBox.Text != "")
                 {
                     EXtract_form_TxtBox();
                 }
@@ -58,10 +73,20 @@ namespace RSA_Cryptool
             }
             return flag;
         }
-        public List<char> toASCII(string aString) //pending...Txt to ASCII
+        private List<int> Convert_toASCII(string s) //pending...Txt to ASCII
         {
-            C[0] = 'q';  
-            return C;
+            byte[] bytes = Encoding.ASCII.GetBytes(s); ;
+            List<int> temp = new List<int>(s.Length);
+            for (int i=0; i<s.Length;i++)
+            {
+                temp[i] = BitConverter.ToInt32(bytes, i);
+            }
+            return temp;
+        }
+
+        private void Do_Encrypt()
+        {
+
         }
 
         private void NhapN_KeyPress(object sender, KeyPressEventArgs e) //number only
@@ -87,8 +112,8 @@ namespace RSA_Cryptool
         public void EXtract_form_TxtBox()  //take information from textBox
         {
             M = plainTextBox.Text.Trim();
-            n = Int32.Parse(NhapN.Text);
-            e = Int32.Parse(NhapE.Text);
+            n = Double.Parse(NhapN.Text);
+            e = Double.Parse(NhapE.Text);
         }
         public double Tinh_n() //cal n
         {
@@ -106,7 +131,7 @@ namespace RSA_Cryptool
 
             return X;
         }
-        
+        private 
         
     }
 }
