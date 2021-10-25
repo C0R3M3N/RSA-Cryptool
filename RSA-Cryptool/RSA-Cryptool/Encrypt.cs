@@ -12,29 +12,29 @@ namespace RSA_Cryptool
 {
     public partial class Encrypt : Form
     {
-        string M;
-        List<int> C;
-        int p, q, X;
-        double n, e, sn, d;
-
-        private void button_Crypt_Click(object sender, EventArgs e)
-        {
-            bool flag = Check_Value();
-            if (flag==false)
-            {
-                MessageBox.Show("Your inputs are not suitable!");
-            }
-            else
-            {
-
-            }
-        }
+        string plaintext;
+        List<double> C, M;
+        int P, Q, X;
+        double N, E, Sn, D;
 
         public Encrypt()
         {
             InitializeComponent();            
         }
-        
+
+        #region Check_and_Execute
+        private void button_Crypt_Click(object sender, EventArgs e)
+        {
+            bool flag = Check_Value();
+            if (flag == false)
+            {
+                MessageBox.Show("Your inputs are not suitable!");
+            }
+            else
+            {
+                Do_Encrypt();
+            }
+        }
         private bool Check_Value()
         {
             bool flag = true;
@@ -70,25 +70,46 @@ namespace RSA_Cryptool
             else
             {
                 Tinh_n();
+                EXtract_form_TxtBox();
             }
             return flag;
         }
-        private List<int> Convert_toASCII(string s) //pending...Txt to ASCII
+        #endregion
+
+        #region Convert_and_Encrypt
+        private List<double> Convert_toASCII(string s) //pending...Txt to ASCII
         {
             byte[] bytes = Encoding.ASCII.GetBytes(s); ;
-            List<int> temp = new List<int>(s.Length);
+            List<double> temp = new List<double>(s.Length);
             for (int i=0; i<s.Length;i++)
             {
-                temp[i] = BitConverter.ToInt32(bytes, i);
+                temp[i] = BitConverter.ToDouble(bytes,0);
             }
             return temp;
         }
-
+        private string Convert_toString(List<double> list)
+        {
+            string temp="";
+            byte[] bytes= new byte[list.Count()];
+            for (int i=0;i<list.Count();i++)
+            {
+                bytes = BitConverter.GetBytes(list[i]);
+                temp = Encoding.ASCII.GetString(bytes);
+            }
+            return temp;
+        }
         private void Do_Encrypt()
         {
-
+            M = Convert_toASCII(plaintext);
+            for (int i = 0; i < M.Count(); i++)
+            {
+                C[i] = Math.Pow(M[i], E) % N;
+            }
+            CipherTextBox.Text = Convert_toString(C);
         }
+        #endregion
 
+        #region Others
         private void NhapN_KeyPress(object sender, KeyPressEventArgs e) //number only
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)){
@@ -111,27 +132,21 @@ namespace RSA_Cryptool
 
         public void EXtract_form_TxtBox()  //take information from textBox
         {
-            M = plainTextBox.Text.Trim();
-            n = Double.Parse(NhapN.Text);
-            e = Double.Parse(NhapE.Text);
+            plaintext = plainTextBox.Text.Trim();
+            N = Double.Parse(NhapN.Text);
+            E = Double.Parse(NhapE.Text);
         }
         public double Tinh_n() //cal n
         {
-            n = (double)p*q;
-            NhapN.Text = n.ToString();
-            return n;
+            N = (double)P*Q;
+            NhapN.Text = N.ToString();
+            return N;
         }
-        public double Tinh_sn()  //cal sn
+        public double Tinh_Sn()  //cal sn
         {
-            sn = (double)(p - 1) * (q - 1);
-            return sn;
+            Sn = (double)(P - 1) * (Q - 1);
+            return Sn;
         }
-        public int Tim_X() //find X
-        {
-
-            return X;
-        }
-        private 
-        
+        #endregion
     }
 }

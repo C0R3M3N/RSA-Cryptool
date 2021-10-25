@@ -37,7 +37,7 @@ namespace RSA_Cryptool
             this.label3 = new System.Windows.Forms.Label();
             this.NhapP = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.CypherTextBox = new System.Windows.Forms.RichTextBox();
+            this.CipherTextBox = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button_Crypt = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -125,12 +125,12 @@ namespace RSA_Cryptool
             // 
             // CypherTextBox
             // 
-            this.CypherTextBox.Location = new System.Drawing.Point(105, 251);
-            this.CypherTextBox.Margin = new System.Windows.Forms.Padding(2);
-            this.CypherTextBox.Name = "CypherTextBox";
-            this.CypherTextBox.Size = new System.Drawing.Size(320, 79);
-            this.CypherTextBox.TabIndex = 2;
-            this.CypherTextBox.Text = "";
+            this.CipherTextBox.Location = new System.Drawing.Point(105, 251);
+            this.CipherTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.CipherTextBox.Name = "CypherTextBox";
+            this.CipherTextBox.Size = new System.Drawing.Size(320, 79);
+            this.CipherTextBox.TabIndex = 2;
+            this.CipherTextBox.Text = "";
             // 
             // label6
             // 
@@ -230,7 +230,7 @@ namespace RSA_Cryptool
             this.Controls.Add(this.button_Crypt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.CypherTextBox);
+            this.Controls.Add(this.CipherTextBox);
             this.Controls.Add(this.plainTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
@@ -256,7 +256,7 @@ namespace RSA_Cryptool
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox NhapP;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RichTextBox CypherTextBox;
+        private System.Windows.Forms.RichTextBox CipherTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button_Crypt;
         private System.Windows.Forms.Label label7;
