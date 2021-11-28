@@ -2,7 +2,6 @@ E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\bin\Debug\RSA-Cryptool.ex
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\bin\Debug\RSA-Cryptool.exe
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\bin\Debug\RSA-Cryptool.pdb
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.csproj.AssemblyReference.cache
-E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA_Cryptool.Form1.resources
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA_Cryptool.Properties.Resources.resources
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.csproj.GenerateResource.cache
 E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.csproj.CoreCompileInputs.cache
@@ -18,3 +17,4 @@ D:\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.csproj.Generate
 D:\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.csproj.CoreCompileInputs.cache
 D:\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.exe
 D:\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA-Cryptool.pdb
+E:\GitHub Clone\RSA-Cryptool\RSA-Cryptool\RSA-Cryptool\obj\Debug\RSA_Cryptool.Encrypt.resources

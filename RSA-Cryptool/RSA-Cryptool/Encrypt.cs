@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RSA_Cryptool
 {
@@ -25,14 +26,43 @@ namespace RSA_Cryptool
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
         {
-            bool flag = Check_Value();
-            if (flag == false)
+            /*bool Check_Value_flag = Check_Value();
+            bool Check_Prime_P_flag = Check_Prime(P);
+            bool Check_Prime_Q_flag = Check_Prime(Q);
+            if (Check_Value_flag == false ||
+                Check_Prime_P_flag == false ||
+                Check_Prime_Q_flag == false)
             {
                 MessageBox.Show("Your inputs are not suitable!");
             }
             else
             {
                 Do_Encrypt();
+            }*/
+            Do_Encrypt();
+        }
+
+        private bool Check_Prime(int n)
+        {
+            if (n < 2) //n nho hon 2 -> khong la so nguyen to
+            {
+                return false;
+            }
+            int count = 0;
+            for (int i = 2; i <= Math.Sqrt(n); i++)//kieem tra tu khoang 2->can 2 cua n
+            {
+                if (n % i == 0)
+                {
+                    count++;
+                }
+            }
+            if (count == 0) 
+            {
+                return true;//khong co so chia het -> so nguyen to
+            }
+            else
+            {
+                return false;   
             }
         }
         private bool Check_Value()
@@ -80,12 +110,24 @@ namespace RSA_Cryptool
         private List<double> Convert_toASCII(string s) //pending...Txt to ASCII
         {
             byte[] bytes = Encoding.ASCII.GetBytes(s); ;
-            List<double> temp = new List<double>(s.Length);
+            int numChar = bytes.Length;
+            List<double> temp = new List<double>();
             for (int i=0; i<s.Length;i++)
             {
-                temp[i] = BitConverter.ToDouble(bytes,0);
+                temp.Add(Convert.ToInt32(((double)bytes[i]))); 
             }
             return temp;
+            /*byte[] bytes = Encoding.ASCII.GetBytes(plaintext);
+            int numChar = bytes.Length;
+            double h=0;
+            double[] k =  new double[numChar];
+            string g=null;
+            for (int i = 0; i < numChar; i++)
+            {
+                h = Convert.ToInt32(((double)bytes[i]));
+                k[i] = h;
+                g = g +" "+ Convert.ToInt32(((double)bytes[i]));
+            }*/
         }
         private string Convert_toString(List<double> list)
         {
@@ -100,13 +142,26 @@ namespace RSA_Cryptool
         }
         private void Do_Encrypt()
         {
+            plaintext = plainTextBox.Text;
+
             M = Convert_toASCII(plaintext);
+            string g = null;
             for (int i = 0; i < M.Count(); i++)
             {
-                C[i] = Math.Pow(M[i], E) % N;
+                double h = M[i];
+                double f = Math.Pow(h, E) % N;
+                
+                g = g + " " + M[i].ToString();
             }
-            CipherTextBox.Text = Convert_toString(C);
+            CipherTextBox.Text = g.ToString();
+            //string hexString = BitConverter.ToString(bytes);
+            //hexString = hexString.Replace("-", " ");
+            //CipherTextBox.Text = hexString;
+            //string[] a = hexString.Split('-');
+
+
         }
+
         #endregion
 
         #region Others
@@ -146,6 +201,26 @@ namespace RSA_Cryptool
         {
             Sn = (double)(P - 1) * (Q - 1);
             return Sn;
+        }
+        public double Generrate_E()
+        {
+
+            return E;
+        }
+        public double Tinh_D()
+        {
+            for(int k=1; k <= int.MaxValue; k++)
+            {
+                D = (1 + k * Sn) / E;
+                if(Check_STN(D)== true) break;
+            }
+            return D;
+        }
+        bool Check_STN(double s)
+        {
+            if (s == (int)Math.Abs(s))
+                return true;
+            return false;
         }
         #endregion
     }
