@@ -16,7 +16,9 @@ namespace RSA_Cryptool
         string plaintext;
         List<double> C, M;
         int P, Q, X;
-        double N, E, Sn, D;
+        double N =-1, E=-1, Sn=-1, D=-1;
+
+        private  Random _random = new Random();
 
         public Encrypt()
         {
@@ -37,9 +39,12 @@ namespace RSA_Cryptool
             }
             else
             {
-                Do_Encrypt();
+                
             }*/
+            Check_Value();
+
             Do_Encrypt();
+            MessageBox.Show(Tinh_D().ToString());
         }
 
         private bool Check_Prime(int n)
@@ -109,7 +114,7 @@ namespace RSA_Cryptool
         #region Convert_and_Encrypt
         private List<double> Convert_toASCII(string s) //pending...Txt to ASCII
         {
-            byte[] bytes = Encoding.ASCII.GetBytes(s); ;
+            byte[] bytes = Encoding.ASCII.GetBytes(s);
             int numChar = bytes.Length;
             List<double> temp = new List<double>();
             for (int i=0; i<s.Length;i++)
@@ -151,7 +156,7 @@ namespace RSA_Cryptool
                 double h = M[i];
                 double f = Math.Pow(h, E) % N;
                 
-                g = g + " " + M[i].ToString();
+                g = g + " " + f.ToString();
             }
             CipherTextBox.Text = g.ToString();
             //string hexString = BitConverter.ToString(bytes);
@@ -188,6 +193,8 @@ namespace RSA_Cryptool
         public void EXtract_form_TxtBox()  //take information from textBox
         {
             plaintext = plainTextBox.Text.Trim();
+            P = int.Parse(NhapP.Text);
+            Q = int.Parse(NhapQ.Text);
             N = Double.Parse(NhapN.Text);
             E = Double.Parse(NhapE.Text);
         }
@@ -205,14 +212,40 @@ namespace RSA_Cryptool
         public double Generrate_E()
         {
 
-            return E;
+            List<double> e = null;
+            for(ulong i = 0; i < Sn; i++)
+            {
+               if( GCD((ulong)Sn, i) == 1 && Check_STN(GCD((ulong)Sn, i)) == true) { 
+                    e.Add(GCD((ulong)Sn, i));
+                }
+            }
+            int j = _random.Next(e.Count());
+            return e[j];
+            
+        }
+        private static ulong GCD(ulong a, ulong b)
+        {
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
+            }
+
+            return a | b;
+        }
+        // Generates a random number within a range.      
+        public double RandomNumber(int min, int max)
+        {
+            return _random.Next(min, max);
         }
         public double Tinh_D()
         {
             for(int k=1; k <= int.MaxValue; k++)
             {
                 D = (1 + k * Sn) / E;
-                if(Check_STN(D)== true) break;
+                if(Check_STN(D) == true) break;
             }
             return D;
         }
