@@ -41,8 +41,8 @@ namespace RSA_Cryptool
             this.label6 = new System.Windows.Forms.Label();
             this.button_Crypt = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.alert_n = new System.Windows.Forms.Label();
-            this.alert_e = new System.Windows.Forms.Label();
+            this.alert_P = new System.Windows.Forms.Label();
+            this.alert_Q = new System.Windows.Forms.Label();
             this.alert_M = new System.Windows.Forms.Label();
             this.NhapQ = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@ namespace RSA_Cryptool
             // 
             // NhapN
             // 
-            this.NhapN.Location = new System.Drawing.Point(171, 198);
+            this.NhapN.Location = new System.Drawing.Point(171, 251);
             this.NhapN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NhapN.Name = "NhapN";
             this.NhapN.Size = new System.Drawing.Size(100, 22);
@@ -63,7 +63,7 @@ namespace RSA_Cryptool
             // 
             // NhapE
             // 
-            this.NhapE.Location = new System.Drawing.Point(467, 198);
+            this.NhapE.Location = new System.Drawing.Point(467, 252);
             this.NhapE.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NhapE.Name = "NhapE";
             this.NhapE.Size = new System.Drawing.Size(100, 22);
@@ -73,7 +73,7 @@ namespace RSA_Cryptool
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 257);
+            this.label1.Location = new System.Drawing.Point(144, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(18, 16);
             this.label1.TabIndex = 1;
@@ -82,7 +82,7 @@ namespace RSA_Cryptool
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(441, 257);
+            this.label2.Location = new System.Drawing.Point(441, 201);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 16);
             this.label2.TabIndex = 1;
@@ -108,7 +108,7 @@ namespace RSA_Cryptool
             // 
             // NhapP
             // 
-            this.NhapP.Location = new System.Drawing.Point(171, 254);
+            this.NhapP.Location = new System.Drawing.Point(171, 198);
             this.NhapP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.NhapP.Name = "NhapP";
             this.NhapP.Size = new System.Drawing.Size(100, 22);
@@ -117,7 +117,7 @@ namespace RSA_Cryptool
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 202);
+            this.label4.Location = new System.Drawing.Point(144, 255);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 16);
             this.label4.TabIndex = 1;
@@ -162,27 +162,27 @@ namespace RSA_Cryptool
             this.label7.Text = "Encrypt";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
-            // alert_n
+            // alert_P
             // 
-            this.alert_n.AutoSize = true;
-            this.alert_n.ForeColor = System.Drawing.Color.Red;
-            this.alert_n.Location = new System.Drawing.Point(276, 201);
-            this.alert_n.Name = "alert_n";
-            this.alert_n.Size = new System.Drawing.Size(146, 16);
-            this.alert_n.TabIndex = 6;
-            this.alert_n.Text = "This fill cannot be blank";
-            this.alert_n.Visible = false;
+            this.alert_P.AutoSize = true;
+            this.alert_P.ForeColor = System.Drawing.Color.Red;
+            this.alert_P.Location = new System.Drawing.Point(276, 201);
+            this.alert_P.Name = "alert_P";
+            this.alert_P.Size = new System.Drawing.Size(146, 16);
+            this.alert_P.TabIndex = 6;
+            this.alert_P.Text = "This fill cannot be blank";
+            this.alert_P.Visible = false;
             // 
-            // alert_e
+            // alert_Q
             // 
-            this.alert_e.AutoSize = true;
-            this.alert_e.ForeColor = System.Drawing.Color.Red;
-            this.alert_e.Location = new System.Drawing.Point(572, 201);
-            this.alert_e.Name = "alert_e";
-            this.alert_e.Size = new System.Drawing.Size(146, 16);
-            this.alert_e.TabIndex = 6;
-            this.alert_e.Text = "This fill cannot be blank";
-            this.alert_e.Visible = false;
+            this.alert_Q.AutoSize = true;
+            this.alert_Q.ForeColor = System.Drawing.Color.Red;
+            this.alert_Q.Location = new System.Drawing.Point(572, 201);
+            this.alert_Q.Name = "alert_Q";
+            this.alert_Q.Size = new System.Drawing.Size(146, 16);
+            this.alert_Q.TabIndex = 6;
+            this.alert_Q.Text = "This fill cannot be blank";
+            this.alert_Q.Visible = false;
             // 
             // alert_M
             // 
@@ -197,8 +197,8 @@ namespace RSA_Cryptool
             // 
             // NhapQ
             // 
-            this.NhapQ.Location = new System.Drawing.Point(467, 254);
-            this.NhapQ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NhapQ.Location = new System.Drawing.Point(467, 198);
+            this.NhapQ.Margin = new System.Windows.Forms.Padding(4);
             this.NhapQ.Name = "NhapQ";
             this.NhapQ.Size = new System.Drawing.Size(100, 22);
             this.NhapQ.TabIndex = 7;
@@ -206,7 +206,7 @@ namespace RSA_Cryptool
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(441, 201);
+            this.label11.Location = new System.Drawing.Point(441, 255);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(18, 16);
@@ -255,8 +255,8 @@ namespace RSA_Cryptool
             this.Controls.Add(this.label11);
             this.Controls.Add(this.NhapQ);
             this.Controls.Add(this.alert_M);
-            this.Controls.Add(this.alert_e);
-            this.Controls.Add(this.alert_n);
+            this.Controls.Add(this.alert_Q);
+            this.Controls.Add(this.alert_P);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button_Crypt);
             this.Controls.Add(this.label6);
@@ -293,8 +293,8 @@ namespace RSA_Cryptool
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button_Crypt;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label alert_n;
-        private System.Windows.Forms.Label alert_e;
+        private System.Windows.Forms.Label alert_P;
+        private System.Windows.Forms.Label alert_Q;
         private System.Windows.Forms.Label alert_M;
         private System.Windows.Forms.TextBox NhapQ;
         private System.Windows.Forms.Label label11;

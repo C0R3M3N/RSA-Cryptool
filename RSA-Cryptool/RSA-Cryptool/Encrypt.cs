@@ -28,26 +28,28 @@ namespace RSA_Cryptool
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
         {
-            /*bool Check_Value_flag = Check_Value();
-            bool Check_Prime_P_flag = Check_Prime(P);
-            bool Check_Prime_Q_flag = Check_Prime(Q);
-            if (Check_Value_flag == false ||
-                Check_Prime_P_flag == false ||
-                Check_Prime_Q_flag == false)
+            CipherTextBox.Clear();
+            bool Check_Value_flag = Check_Value();
+            if (Check_Value_flag)
             {
-                MessageBox.Show("Your inputs are not suitable!");
+                EXtract_form_TxtBox();
+                bool Check_Prime_P_flag = Check_Prime(P);
+                bool Check_Prime_Q_flag = Check_Prime(Q);
+                if (!Check_Prime_P_flag || !Check_Prime_Q_flag)
+                {
+                    MessageBox.Show("Your inputs P or Q are not Prime!");
+                }
+                else
+                {
+                    //Check_Value();
+                    Tinh_n();
+                    Tinh_Sn();
+                    Tinh_E();
+                    Tinh_D();
+                    Do_Encrypt();
+                }
             }
-            else
-            {
-                
-            }*/
-            //Check_Value();
-            EXtract_form_TxtBox();
-                Tinh_n();
-                Tinh_Sn();
-                Tinh_E();
-                Tinh_D();
-                Do_Encrypt();
+            
         }
 
         private bool Check_Prime(int n)
@@ -76,41 +78,12 @@ namespace RSA_Cryptool
         private bool Check_Value()
         {
             bool flag = true;
-            if (NhapE.Text != "") 
-                alert_e.Visible = false; 
-            else 
-            { 
-                alert_e.Visible = true; 
-                flag = false; 
-            }
-            if (NhapP.Text == "" || NhapQ.Text == "")
-            {
-                if (plainTextBox.Text != "" ) 
-                    alert_M.Visible = false; 
-                else 
-                { 
-                    alert_M.Visible = true; 
-                    flag = false; 
-                }
-                if (NhapN.Text != "") 
-                    alert_n.Visible = false; 
-                else 
-                { 
-                    alert_n.Visible = true; 
-                    flag = false; 
-                }
-
-                if (NhapN.Text != "" && NhapE.Text != "" && plainTextBox.Text != "")
-                {
-                    EXtract_form_TxtBox();
-                }
-            }
-            else
-            {
-                
-                Tinh_n();
-                EXtract_form_TxtBox();
-            }
+            alert_Q.Visible = false;
+            alert_M.Visible = false;
+            alert_P.Visible = false;
+            if (plainTextBox.Text == "") { flag = false; alert_M.Visible = true; }
+            if (NhapP.Text == "") { flag = false; alert_P.Visible = true; }
+            if (NhapQ.Text == "") { flag = false; alert_Q.Visible = true; }
             return flag;
         }
         #endregion
