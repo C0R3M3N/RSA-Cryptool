@@ -28,7 +28,7 @@ namespace RSA_Cryptool
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
         {
-            bool Check_Value_flag = Check_Value();
+            /*bool Check_Value_flag = Check_Value();
             bool Check_Prime_P_flag = Check_Prime(P);
             bool Check_Prime_Q_flag = Check_Prime(Q);
             if (Check_Value_flag == false ||
@@ -39,15 +39,15 @@ namespace RSA_Cryptool
             }
             else
             {
-                Check_Value();
+                
+            }*/
+            //Check_Value();
+            EXtract_form_TxtBox();
+                Tinh_n();
                 Tinh_Sn();
                 Tinh_E();
                 Tinh_D();
-
                 Do_Encrypt();
-                MessageBox.Show(Tinh_D().ToString());
-            }
-            
         }
 
         private bool Check_Prime(int n)
@@ -162,7 +162,10 @@ namespace RSA_Cryptool
                 
                 g = g + " " + f.ToString();
             }
+
+            NhapN.Text = N.ToString();
             Sn_Text.Text = Sn.ToString();
+            NhapE.Text = E.ToString();
             D_text.Text = D.ToString();
             CipherTextBox.Text = g.ToString();
             //string hexString = BitConverter.ToString(bytes);
@@ -201,13 +204,12 @@ namespace RSA_Cryptool
             plaintext = plainTextBox.Text.Trim();
             P = int.Parse(NhapP.Text);
             Q = int.Parse(NhapQ.Text);
-            N = Double.Parse(NhapN.Text);
-            E = Double.Parse(NhapE.Text);
+            //N = Double.Parse(NhapN.Text);
+            //E = Double.Parse(NhapE.Text);
         }
         public double Tinh_n() //cal n
         {
-            N = (double)P*Q;
-            NhapN.Text = N.ToString();
+            N = (double)P * Q;
             return N;
         }
         public double Tinh_Sn()  //cal sn
@@ -241,7 +243,6 @@ namespace RSA_Cryptool
                 }
             }
             E = (double)k;
-            NhapE.Text = E.ToString();
             return E;
         }
         public double Tinh_D()
