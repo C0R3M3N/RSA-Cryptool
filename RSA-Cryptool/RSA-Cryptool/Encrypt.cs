@@ -28,7 +28,7 @@ namespace RSA_Cryptool
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
         {
-            /*bool Check_Value_flag = Check_Value();
+            bool Check_Value_flag = Check_Value();
             bool Check_Prime_P_flag = Check_Prime(P);
             bool Check_Prime_Q_flag = Check_Prime(Q);
             if (Check_Value_flag == false ||
@@ -39,12 +39,15 @@ namespace RSA_Cryptool
             }
             else
             {
-                
-            }*/
-            Check_Value();
+                Check_Value();
+                Tinh_Sn();
+                Tinh_E();
+                Tinh_D();
 
-            Do_Encrypt();
-            MessageBox.Show(Tinh_D().ToString());
+                Do_Encrypt();
+                MessageBox.Show(Tinh_D().ToString());
+            }
+            
         }
 
         private bool Check_Prime(int n)
@@ -104,6 +107,7 @@ namespace RSA_Cryptool
             }
             else
             {
+                
                 Tinh_n();
                 EXtract_form_TxtBox();
             }
@@ -158,6 +162,8 @@ namespace RSA_Cryptool
                 
                 g = g + " " + f.ToString();
             }
+            Sn_Text.Text = Sn.ToString();
+            D_text.Text = D.ToString();
             CipherTextBox.Text = g.ToString();
             //string hexString = BitConverter.ToString(bytes);
             //hexString = hexString.Replace("-", " ");
@@ -223,6 +229,31 @@ namespace RSA_Cryptool
             return e[j];
             
         }
+        public double Tinh_E()
+        {
+            ulong k = 0;
+            for (ulong i = 2; i < Sn; i++)
+            {
+                if (GCD((ulong)Sn, i) == 1)
+                {
+                    k = i;
+                    break;
+                }
+            }
+            E = (double)k;
+            NhapE.Text = E.ToString();
+            return E;
+        }
+        public double Tinh_D()
+        {
+            for(int k=1; k <= int.MaxValue; k++)
+            {
+                D = (1 + k * Sn) / E;
+                if(Check_STN(D) == true) break;
+            }
+            return D;
+        }
+
         private static ulong GCD(ulong a, ulong b)
         {
             while (a != 0 && b != 0)
@@ -233,21 +264,12 @@ namespace RSA_Cryptool
                     b %= a;
             }
 
-            return a | b;
+            return a|b;
         }
         // Generates a random number within a range.      
         public double RandomNumber(int min, int max)
         {
             return _random.Next(min, max);
-        }
-        public double Tinh_D()
-        {
-            for(int k=1; k <= int.MaxValue; k++)
-            {
-                D = (1 + k * Sn) / E;
-                if(Check_STN(D) == true) break;
-            }
-            return D;
         }
         bool Check_STN(double s)
         {
