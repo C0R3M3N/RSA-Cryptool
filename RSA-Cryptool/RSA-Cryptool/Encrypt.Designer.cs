@@ -50,6 +50,7 @@ namespace RSA_Cryptool
             this.Sn_Text = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.generateE = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // NhapN
@@ -113,6 +114,7 @@ namespace RSA_Cryptool
             this.NhapP.Name = "NhapP";
             this.NhapP.Size = new System.Drawing.Size(100, 22);
             this.NhapP.TabIndex = 0;
+            this.NhapP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NhapP_KeyPress);
             // 
             // label4
             // 
@@ -125,7 +127,7 @@ namespace RSA_Cryptool
             // 
             // CipherTextBox
             // 
-            this.CipherTextBox.Location = new System.Drawing.Point(140, 309);
+            this.CipherTextBox.Location = new System.Drawing.Point(140, 354);
             this.CipherTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CipherTextBox.Name = "CipherTextBox";
             this.CipherTextBox.Size = new System.Drawing.Size(425, 96);
@@ -135,7 +137,7 @@ namespace RSA_Cryptool
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(47, 338);
+            this.label6.Location = new System.Drawing.Point(47, 383);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 16);
             this.label6.TabIndex = 3;
@@ -202,6 +204,7 @@ namespace RSA_Cryptool
             this.NhapQ.Name = "NhapQ";
             this.NhapQ.Size = new System.Drawing.Size(100, 22);
             this.NhapQ.TabIndex = 7;
+            this.NhapQ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NhapQ_KeyPress);
             // 
             // label11
             // 
@@ -245,11 +248,22 @@ namespace RSA_Cryptool
             this.label8.TabIndex = 1;
             this.label8.Text = "d:";
             // 
+            // generateE
+            // 
+            this.generateE.Location = new System.Drawing.Point(478, 279);
+            this.generateE.Name = "generateE";
+            this.generateE.Size = new System.Drawing.Size(87, 23);
+            this.generateE.TabIndex = 11;
+            this.generateE.Text = "generate e";
+            this.generateE.UseVisualStyleBackColor = true;
+            this.generateE.Click += new System.EventHandler(this.generateE_Click);
+            // 
             // Encrypt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 469);
+            this.ClientSize = new System.Drawing.Size(817, 488);
+            this.Controls.Add(this.generateE);
             this.Controls.Add(this.Sn_Text);
             this.Controls.Add(this.D_text);
             this.Controls.Add(this.label11);
@@ -302,6 +316,7 @@ namespace RSA_Cryptool
         private System.Windows.Forms.TextBox Sn_Text;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button generateE;
     }
 }
 

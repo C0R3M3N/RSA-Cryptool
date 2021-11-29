@@ -44,12 +44,11 @@ namespace RSA_Cryptool
                     //Check_Value();
                     Tinh_n();
                     Tinh_Sn();
-                    Tinh_E();
+                    if (NhapE.Text == "") Tinh_E();
                     Tinh_D();
                     Do_Encrypt();
                 }
             }
-            
         }
 
         private bool Check_Prime(int n)
@@ -89,7 +88,7 @@ namespace RSA_Cryptool
         #endregion
 
         #region Convert_and_Encrypt
-        private List<double> Convert_toASCII(string s) //pending...Txt to ASCII
+        private List<double> Convert_toASCII(string s) //String to ASCII
         {
             byte[] bytes = Encoding.ASCII.GetBytes(s);
             int numChar = bytes.Length;
@@ -158,7 +157,7 @@ namespace RSA_Cryptool
                 e.Handled = true;   
             }
         }
-
+        #region Number Only
         private void NhapE_KeyPress(object sender, KeyPressEventArgs e) //number only
         {
             if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -166,12 +165,25 @@ namespace RSA_Cryptool
                 e.Handled = true;
             }
         }
-
+        private void NhapP_KeyPress(object sender, KeyPressEventArgs e) //number only
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void NhapQ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         private void label7_Click(object sender, EventArgs e)
         {
 
         }
-
+        #endregion
         public void EXtract_form_TxtBox()  //take information from textBox
         {
             plaintext = plainTextBox.Text.Trim();
@@ -190,18 +202,37 @@ namespace RSA_Cryptool
             Sn = (double)(P - 1) * (Q - 1);
             return Sn;
         }
+
+        private void generateE_Click(object sender, EventArgs e)
+        {
+            EXtract_form_TxtBox();
+            bool Check_Prime_P_flag = Check_Prime(P);
+            bool Check_Prime_Q_flag = Check_Prime(Q);
+            if (!Check_Prime_P_flag || !Check_Prime_Q_flag)
+            {
+                MessageBox.Show("Your inputs P or Q are not Prime!");
+            }
+            else
+            {
+                Tinh_Sn();
+                E = Generrate_E();
+                NhapE.Text = E.ToString();
+            }
+        }
+
+        
         public double Generrate_E()
         {
-
-            List<double> e = null;
-            for(ulong i = 0; i < Sn; i++)
+            List<double> e = new List<double>();
+            for(ulong i = 2; i < Sn; i++)
             {
                if( GCD((ulong)Sn, i) == 1 && Check_STN(GCD((ulong)Sn, i)) == true) { 
-                    e.Add(GCD((ulong)Sn, i));
+                    e.Add( i );
                 }
             }
-            int j = _random.Next(e.Count());
-            return e[j];
+            int f = _random.Next(e.Count());
+            double g = e[f];
+            return g;
             
         }
         public double Tinh_E()
