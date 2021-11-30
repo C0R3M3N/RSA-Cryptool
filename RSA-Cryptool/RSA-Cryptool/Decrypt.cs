@@ -119,16 +119,28 @@ namespace RSA_Cryptool
             }
             return temp;
         }
+        private List<double> Convert_toDouble(string s)
+        {
+            string[] a = ciphertext.Split(' ');
+            //for (int i = 0; i < a.Length; i++) { C[i] = Convert.ToDouble(a[i]); }
+            List<double> temp = new List<double>();
+            for (int i = 0; i < a.Length; i++)
+            {
+                temp.Add(Convert.ToDouble((a[i])));
+            }
+            return temp;
+        }
         private void Do_Decrypt()
         {
-            //ciphertext = CipherTextBox.Text;
+            ciphertext = CipherTextBox.Text;
             //string[] a = ciphertext.Split(' ');
             //for(int i = 0; i < a.Length; i++) { C[i]=Convert.ToDouble(a[i]); }
+            C = Convert_toDouble(ciphertext);
             MessageBox.Show("ok");
             string g = null;
             for (int i = 0; i < C.Count(); i++)
             {
-                double h = C[i];
+                double h = (double)C[i];
                 double f = Math.Pow(h, D) % N;
 
                 g = g + " " + f.ToString();
