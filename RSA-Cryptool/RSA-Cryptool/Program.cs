@@ -16,7 +16,7 @@ namespace RSA_Cryptool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Decrypt());
+            Application.Run(new Home());
         }
     }
 }

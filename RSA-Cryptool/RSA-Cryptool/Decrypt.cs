@@ -54,7 +54,7 @@ namespace RSA_Cryptool
             Sn_Text.ReadOnly = true;
             D_text.ReadOnly = true;
             generateE.Visible = false;
-            
+            radio_HandInput.Checked = true;
         }
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
@@ -176,7 +176,7 @@ namespace RSA_Cryptool
         }
         private List<BigInteger> Convert_toDouble(string s)
         {
-            string[] a = ciphertext.Split(' ');
+            string[] a = s.Split(' ');
             //for (int i = 0; i < a.Length; i++) { C[i] = Convert.ToDouble(a[i]); }
             List<BigInteger> temp = new List<BigInteger>();
             for (int i = 0; i < a.Length; i++)
