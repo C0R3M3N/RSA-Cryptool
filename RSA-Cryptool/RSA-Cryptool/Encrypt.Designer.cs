@@ -53,6 +53,8 @@ namespace RSA_Cryptool
             this.generateE = new System.Windows.Forms.Button();
             this.radio_Random = new System.Windows.Forms.RadioButton();
             this.radio_HandInput = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Export_butt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // NhapN
@@ -284,11 +286,33 @@ namespace RSA_Cryptool
             this.radio_HandInput.UseVisualStyleBackColor = true;
             this.radio_HandInput.CheckedChanged += new System.EventHandler(this.radio_HandInput_CheckedChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(575, 86);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 23);
+            this.button1.TabIndex = 37;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Export_butt
+            // 
+            this.Export_butt.Location = new System.Drawing.Point(575, 427);
+            this.Export_butt.Name = "Export_butt";
+            this.Export_butt.Size = new System.Drawing.Size(72, 23);
+            this.Export_butt.TabIndex = 37;
+            this.Export_butt.Text = "export";
+            this.Export_butt.UseVisualStyleBackColor = true;
+            this.Export_butt.Click += new System.EventHandler(this.Export_butt_Click);
+            // 
             // Encrypt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(817, 488);
+            this.Controls.Add(this.Export_butt);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.radio_Random);
             this.Controls.Add(this.radio_HandInput);
             this.Controls.Add(this.generateE);
@@ -347,6 +371,8 @@ namespace RSA_Cryptool
         private System.Windows.Forms.Button generateE;
         private System.Windows.Forms.RadioButton radio_Random;
         private System.Windows.Forms.RadioButton radio_HandInput;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Export_butt;
     }
 }
 

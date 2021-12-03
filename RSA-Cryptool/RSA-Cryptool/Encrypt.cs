@@ -54,6 +54,7 @@ namespace RSA_Cryptool
             D_text.ReadOnly = true;
             generateE.Visible = false;
             radio_HandInput.Checked = true;
+            NhapN.ReadOnly = true;
         }
 
         #region Check_and_Execute
@@ -166,7 +167,7 @@ namespace RSA_Cryptool
                 g += " " + f;
                 //g += ASCIIEncoding.ASCII.GetString(f.ToByteArray());
             }
-
+            
             NhapN.Text = N.ToString();
             Sn_Text.Text = Sn.ToString();
             NhapE.Text = E.ToString();
@@ -245,7 +246,10 @@ namespace RSA_Cryptool
         private void generateE_Click(object sender, EventArgs e)
         {
             P = randomPrimeNum();
-            Q = randomPrimeNum();
+            do
+            {
+                Q = randomPrimeNum();
+            } while (Q == P);
             /*EXtract_form_TxtBox();
             bool Check_Prime_P_flag = Check_Prime(P);
             bool Check_Prime_Q_flag = Check_Prime(Q);
@@ -332,7 +336,6 @@ namespace RSA_Cryptool
         private void radio_HandInput_CheckedChanged(object sender, EventArgs e)
         {
             NhapE.ReadOnly = false;
-            NhapN.ReadOnly = false;
             NhapP.ReadOnly = false;
             NhapQ.ReadOnly = false;
             generateE.Visible = false;
@@ -352,6 +355,36 @@ namespace RSA_Cryptool
         {
             return _random.Next(min, max);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //int size = -1;
+            OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
+            openFileDialog.ShowDialog();
+            string file = openFileDialog.FileName;
+            plainTextBox.Text = File.ReadAllText(file);
+            /*if (result == DialogResult.OK) // Test result.
+            {
+                string file = openFileDialog1.FileName;
+                try
+                {
+                    string text = File.ReadAllText(file);
+                    size = text.Length;
+                }
+                catch (IOException)
+                {
+                }
+            }*/
+        }
+
+        private void Export_butt_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
+            openFileDialog.ShowDialog();
+            string file = openFileDialog.FileName;
+            File.WriteAllText(file, CipherTextBox.Text);
+        }
+
         bool Check_STN(double s)
         {
             if (s == (int)Math.Abs(s))

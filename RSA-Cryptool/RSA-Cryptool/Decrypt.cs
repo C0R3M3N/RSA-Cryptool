@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using System.Numerics;
 
 namespace RSA_Cryptool
@@ -55,6 +56,7 @@ namespace RSA_Cryptool
             D_text.ReadOnly = true;
             generateE.Visible = false;
             radio_HandInput.Checked = true;
+            NhapN.ReadOnly = true;
         }
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
@@ -281,7 +283,10 @@ namespace RSA_Cryptool
         {
             //EXtract_form_TxtBox();
             P = randomPrimeNum();
-            Q = randomPrimeNum();
+            do
+            {
+                Q = randomPrimeNum();
+            } while (Q == P);
             /*bool Check_Prime_P_flag = Check_Prime(P);
             bool Check_Prime_Q_flag = Check_Prime(Q);
             if (!Check_Prime_P_flag || !Check_Prime_Q_flag)
@@ -368,7 +373,6 @@ namespace RSA_Cryptool
         private void radio_HandInput_CheckedChanged(object sender, EventArgs e)
         {
             NhapE.ReadOnly = false;
-            NhapN.ReadOnly = false;
             NhapP.ReadOnly = false;
             NhapQ.ReadOnly = false;
             generateE.Visible = false;
@@ -382,6 +386,22 @@ namespace RSA_Cryptool
             NhapP.ReadOnly = true;
             NhapQ.ReadOnly = true;
             generateE.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
+            openFileDialog.ShowDialog();
+            string file = openFileDialog.FileName;
+            CipherTextBox.Text = File.ReadAllText(file);
+        }
+
+        private void Export_butt_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
+            openFileDialog.ShowDialog();
+            string file = openFileDialog.FileName;
+            File.WriteAllText(file, plainTextBox.Text);
         }
 
         // Generates a random number within a range.      
