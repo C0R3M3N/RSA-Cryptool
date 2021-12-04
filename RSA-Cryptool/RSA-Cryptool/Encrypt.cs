@@ -36,7 +36,7 @@ namespace RSA_Cryptool
     1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889,
     1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999 };
         string plaintext;
-        List<BigInteger> C, M;
+        List<BigInteger>  M,lsE;
         //int P, Q, X;
         //double N = -1, E = -1, Sn = -1, D = -1;
         public BigInteger D = new BigInteger();
@@ -52,9 +52,10 @@ namespace RSA_Cryptool
             InitializeComponent();
             Sn_Text.ReadOnly = true;
             D_text.ReadOnly = true;
-            generateE.Visible = false;
             radio_HandInput.Checked = true;
             NhapN.ReadOnly = true;
+            PublicKey_textBox.ReadOnly = true;
+            privateKey_textBox.ReadOnly = true;
         }
 
         #region Check_and_Execute
@@ -69,16 +70,34 @@ namespace RSA_Cryptool
                 bool Check_Prime_Q_flag = Check_Prime(Q);
                 if (!Check_Prime_P_flag || !Check_Prime_Q_flag)
                 {
-                    MessageBox.Show("Your inputs P or Q are not Prime!");
+                    MessageBox.Show(" P or Q are not Prime!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    //Check_Value();
-                    Tinh_n();
-                    Tinh_Sn();
-                    //if (NhapE.Text == "") Tinh_E();
-                    Tinh_D();
-                    Do_Encrypt();
+                    if (radio_Random.Checked)
+                    {
+                        Do_Encrypt();
+                    }
+                    if (radio_HandInput.Checked)
+                    {
+                        //Check_Value();
+                        Tinh_n();
+                        Tinh_Sn();
+                        //if (NhapE.Text == "") Tinh_E();
+                        lsE = List_E();
+                        if (lsE.Contains(E) || E==65537)
+                        {
+                            Tinh_D();
+                            NhapN.Text = N.ToString();
+                            NhapE.Text = E.ToString();
+                            Sn_Text.Text = Sn.ToString();
+                            D_text.Text = D.ToString();
+                            privateKey_textBox.Text = D.ToString() + " ; " + N.ToString();
+                            PublicKey_textBox.Text = E.ToString() + " ; " + N.ToString();
+                            Do_Encrypt();
+                        }
+                        else { NhapE.Text = null; MessageBox.Show("Invalid E!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error) ; }
+                    }
                 }
             }
         }
@@ -112,9 +131,11 @@ namespace RSA_Cryptool
             alert_Q.Visible = false;
             alert_M.Visible = false;
             alert_P.Visible = false;
+            alert_E.Visible = false;
             if (plainTextBox.Text == "") { flag = false; alert_M.Visible = true; }
             if (NhapP.Text == "") { flag = false; alert_P.Visible = true; }
             if (NhapQ.Text == "") { flag = false; alert_Q.Visible = true; }
+            if (NhapE.Text == "") { flag = false; alert_E.Visible = true; }
             return flag;
         }
         #endregion
@@ -155,7 +176,6 @@ namespace RSA_Cryptool
         }
         private void Do_Encrypt()
         {
-            
             plaintext = plainTextBox.Text;
             M = Convert_toASCII(plaintext);
             MessageBox.Show("ok");
@@ -167,12 +187,8 @@ namespace RSA_Cryptool
                 g += " " + f;
                 //g += ASCIIEncoding.ASCII.GetString(f.ToByteArray());
             }
-            
-            NhapN.Text = N.ToString();
-            Sn_Text.Text = Sn.ToString();
-            NhapE.Text = E.ToString();
-            D_text.Text = D.ToString();
-            CipherTextBox.Text = g.ToString();
+            string trimed = g.Trim();
+            CipherTextBox.Text = trimed.ToString();
             //string hexString = BitConverter.ToString(bytes);
             //hexString = hexString.Replace("-", " ");
             //CipherTextBox.Text = hexString;
@@ -243,7 +259,8 @@ namespace RSA_Cryptool
             return ra;
 
         }
-        private void generateE_Click(object sender, EventArgs e)
+
+         private void generateRandom()
         {
             P = randomPrimeNum();
             do
@@ -267,11 +284,10 @@ namespace RSA_Cryptool
             NhapQ.Text = Q.ToString();
             NhapE.Text = E.ToString();
         }
-
         
         public BigInteger Generrate_E()
         {
-            List<double> e = new List<double>();
+            List<BigInteger> e = new List<BigInteger>();
             for(ulong i = 2; i < Sn; i++)
             {
                if( GCD((ulong)Sn, i) == 1 && Check_STN(GCD((ulong)Sn, i)) == true) { 
@@ -283,19 +299,19 @@ namespace RSA_Cryptool
             return g;
             
         }
-        public BigInteger Tinh_E()
+        public List<BigInteger> List_E()
         {
-            ulong k = 0;
+            Tinh_Sn();
+            List<BigInteger> e = new List<BigInteger>();
             for (ulong i = 2; i < Sn; i++)
             {
-                if (GCD((ulong)Sn, i) == 1)
+                if (GCD((ulong)Sn, i) == 1 && Check_STN(GCD((ulong)Sn, i)) == true)
                 {
-                    k = i;
-                    break;
+                    e.Add(i);
+                    
                 }
             }
-            E = (BigInteger)k;
-            return E;
+            return e;
         }
         public BigInteger Tinh_D()
         {
@@ -332,13 +348,17 @@ namespace RSA_Cryptool
             NhapE.Text = null;
             Sn_Text.Text = null;
             D_text.Text = null;
+            CipherTextBox.Text = null;
+            privateKey_textBox.Text = null;
+            PublicKey_textBox.Text = null;
         }
         private void radio_HandInput_CheckedChanged(object sender, EventArgs e)
         {
+            textClear();
             NhapE.ReadOnly = false;
             NhapP.ReadOnly = false;
             NhapQ.ReadOnly = false;
-            generateE.Visible = false;
+            NhapE.Text = "65537";
         }
 
         private void radio_Random_CheckedChanged(object sender, EventArgs e)
@@ -348,7 +368,16 @@ namespace RSA_Cryptool
             NhapN.ReadOnly = true;
             NhapP.ReadOnly = true;
             NhapQ.ReadOnly = true;
-            generateE.Visible = true;
+            generateRandom();
+            Tinh_n();
+            Tinh_Sn();
+            Tinh_D();
+            NhapN.Text = N.ToString();
+            Sn_Text.Text = Sn.ToString();
+            D_text.Text = D.ToString();
+            privateKey_textBox.Text = D.ToString() + " ; " + N.ToString();
+            PublicKey_textBox.Text = E.ToString() + " ; " + N.ToString();
+
         }
 
         public double RandomNumber(int min, int max)
@@ -361,8 +390,12 @@ namespace RSA_Cryptool
             //int size = -1;
             OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
             openFileDialog.ShowDialog();
-            string file = openFileDialog.FileName;
-            plainTextBox.Text = File.ReadAllText(file);
+            try
+            {
+                string file = openFileDialog.FileName;
+                plainTextBox.Text = File.ReadAllText(file);
+            }
+            catch { MessageBox.Show(" file NOT selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             /*if (result == DialogResult.OK) // Test result.
             {
                 string file = openFileDialog1.FileName;
@@ -381,9 +414,14 @@ namespace RSA_Cryptool
         {
             OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
             openFileDialog.ShowDialog();
-            string file = openFileDialog.FileName;
-            File.WriteAllText(file, CipherTextBox.Text);
+            try
+            {
+                string file = openFileDialog.FileName;
+                File.WriteAllText(file, CipherTextBox.Text);
+            }
+            catch { MessageBox.Show("file NOT selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
+
 
         bool Check_STN(double s)
         {

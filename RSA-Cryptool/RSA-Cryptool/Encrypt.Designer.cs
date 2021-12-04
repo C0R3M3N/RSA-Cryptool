@@ -50,11 +50,15 @@ namespace RSA_Cryptool
             this.Sn_Text = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.generateE = new System.Windows.Forms.Button();
             this.radio_Random = new System.Windows.Forms.RadioButton();
             this.radio_HandInput = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.Export_butt = new System.Windows.Forms.Button();
+            this.alert_E = new System.Windows.Forms.Label();
+            this.Pivate_key_lable = new System.Windows.Forms.Label();
+            this.Public_key_lable = new System.Windows.Forms.Label();
+            this.privateKey_textBox = new System.Windows.Forms.TextBox();
+            this.PublicKey_textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NhapN
@@ -152,7 +156,7 @@ namespace RSA_Cryptool
             this.button_Crypt.Location = new System.Drawing.Point(621, 351);
             this.button_Crypt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_Crypt.Name = "button_Crypt";
-            this.button_Crypt.Size = new System.Drawing.Size(79, 28);
+            this.button_Crypt.Size = new System.Drawing.Size(140, 59);
             this.button_Crypt.TabIndex = 4;
             this.button_Crypt.Text = "Encrypt";
             this.button_Crypt.UseVisualStyleBackColor = true;
@@ -222,14 +226,14 @@ namespace RSA_Cryptool
             // 
             // D_text
             // 
-            this.D_text.Location = new System.Drawing.Point(661, 296);
+            this.D_text.Location = new System.Drawing.Point(811, 297);
             this.D_text.Name = "D_text";
             this.D_text.Size = new System.Drawing.Size(100, 22);
             this.D_text.TabIndex = 9;
             // 
             // Sn_Text
             // 
-            this.Sn_Text.Location = new System.Drawing.Point(661, 251);
+            this.Sn_Text.Location = new System.Drawing.Point(811, 252);
             this.Sn_Text.Name = "Sn_Text";
             this.Sn_Text.Size = new System.Drawing.Size(100, 22);
             this.Sn_Text.TabIndex = 10;
@@ -237,7 +241,7 @@ namespace RSA_Cryptool
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(618, 254);
+            this.label5.Location = new System.Drawing.Point(768, 255);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 17);
             this.label5.TabIndex = 1;
@@ -246,21 +250,11 @@ namespace RSA_Cryptool
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(618, 302);
+            this.label8.Location = new System.Drawing.Point(768, 303);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 17);
             this.label8.TabIndex = 1;
             this.label8.Text = "d:";
-            // 
-            // generateE
-            // 
-            this.generateE.Location = new System.Drawing.Point(478, 279);
-            this.generateE.Name = "generateE";
-            this.generateE.Size = new System.Drawing.Size(87, 23);
-            this.generateE.TabIndex = 11;
-            this.generateE.Text = "generate e";
-            this.generateE.UseVisualStyleBackColor = true;
-            this.generateE.Click += new System.EventHandler(this.generateE_Click);
             // 
             // radio_Random
             // 
@@ -306,21 +300,70 @@ namespace RSA_Cryptool
             this.Export_butt.UseVisualStyleBackColor = true;
             this.Export_butt.Click += new System.EventHandler(this.Export_butt_Click);
             // 
+            // alert_E
+            // 
+            this.alert_E.AutoSize = true;
+            this.alert_E.ForeColor = System.Drawing.Color.Red;
+            this.alert_E.Location = new System.Drawing.Point(573, 254);
+            this.alert_E.Name = "alert_E";
+            this.alert_E.Size = new System.Drawing.Size(157, 17);
+            this.alert_E.TabIndex = 6;
+            this.alert_E.Text = "This fill cannot be blank";
+            this.alert_E.Visible = false;
+            // 
+            // Pivate_key_lable
+            // 
+            this.Pivate_key_lable.AutoSize = true;
+            this.Pivate_key_lable.Location = new System.Drawing.Point(84, 300);
+            this.Pivate_key_lable.Name = "Pivate_key_lable";
+            this.Pivate_key_lable.Size = new System.Drawing.Size(80, 17);
+            this.Pivate_key_lable.TabIndex = 38;
+            this.Pivate_key_lable.Text = "Private Key";
+            // 
+            // Public_key_lable
+            // 
+            this.Public_key_lable.AutoSize = true;
+            this.Public_key_lable.Location = new System.Drawing.Point(387, 302);
+            this.Public_key_lable.Name = "Public_key_lable";
+            this.Public_key_lable.Size = new System.Drawing.Size(74, 17);
+            this.Public_key_lable.TabIndex = 38;
+            this.Public_key_lable.Text = "Public Key";
+            // 
+            // privateKey_textBox
+            // 
+            this.privateKey_textBox.Location = new System.Drawing.Point(171, 295);
+            this.privateKey_textBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.privateKey_textBox.Name = "privateKey_textBox";
+            this.privateKey_textBox.Size = new System.Drawing.Size(158, 22);
+            this.privateKey_textBox.TabIndex = 0;
+            this.privateKey_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NhapN_KeyPress);
+            // 
+            // PublicKey_textBox
+            // 
+            this.PublicKey_textBox.Location = new System.Drawing.Point(467, 297);
+            this.PublicKey_textBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PublicKey_textBox.Name = "PublicKey_textBox";
+            this.PublicKey_textBox.Size = new System.Drawing.Size(160, 22);
+            this.PublicKey_textBox.TabIndex = 0;
+            this.PublicKey_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NhapN_KeyPress);
+            // 
             // Encrypt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 488);
+            this.ClientSize = new System.Drawing.Size(1002, 488);
+            this.Controls.Add(this.Public_key_lable);
+            this.Controls.Add(this.Pivate_key_lable);
             this.Controls.Add(this.Export_butt);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.radio_Random);
             this.Controls.Add(this.radio_HandInput);
-            this.Controls.Add(this.generateE);
             this.Controls.Add(this.Sn_Text);
             this.Controls.Add(this.D_text);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.NhapQ);
             this.Controls.Add(this.alert_M);
+            this.Controls.Add(this.alert_E);
             this.Controls.Add(this.alert_Q);
             this.Controls.Add(this.alert_P);
             this.Controls.Add(this.label7);
@@ -336,10 +379,12 @@ namespace RSA_Cryptool
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NhapP);
             this.Controls.Add(this.NhapE);
+            this.Controls.Add(this.PublicKey_textBox);
+            this.Controls.Add(this.privateKey_textBox);
             this.Controls.Add(this.NhapN);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Encrypt";
-            this.Text = "Encryption";
+            this.Text = "0";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,11 +413,15 @@ namespace RSA_Cryptool
         private System.Windows.Forms.TextBox Sn_Text;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button generateE;
         private System.Windows.Forms.RadioButton radio_Random;
         private System.Windows.Forms.RadioButton radio_HandInput;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Export_butt;
+        private System.Windows.Forms.Label alert_E;
+        private System.Windows.Forms.Label Pivate_key_lable;
+        private System.Windows.Forms.Label Public_key_lable;
+        private System.Windows.Forms.TextBox privateKey_textBox;
+        private System.Windows.Forms.TextBox PublicKey_textBox;
     }
 }
 

@@ -37,7 +37,7 @@ namespace RSA_Cryptool
     1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999 };
 
         string plaintext, ciphertext;
-        List<BigInteger> C, M;
+        List<BigInteger> C,lsE;
         //int P, Q, X;
         //double N = -1, E = -1, Sn = -1, D = -1;
         public BigInteger D = new BigInteger();
@@ -54,9 +54,10 @@ namespace RSA_Cryptool
 
             Sn_Text.ReadOnly = true;
             D_text.ReadOnly = true;
-            generateE.Visible = false;
             radio_HandInput.Checked = true;
             NhapN.ReadOnly = true;
+            PublicKey_textBox.ReadOnly = true;
+            privateKey_textBox.ReadOnly = true;
         }
         #region Check_and_Execute
         private void button_Crypt_Click(object sender, EventArgs e)
@@ -74,12 +75,30 @@ namespace RSA_Cryptool
                 }
                 else
                 {
-                    //Check_Value();
-                    Tinh_n();
-                    Tinh_Sn();
-                    //if (NhapE.Text == "") Tinh_E();
-                    Tinh_D();
-                    Do_Decrypt();
+                    if (radio_Random.Checked)
+                    {
+                        Do_Decrypt();
+                    }
+                    if (radio_HandInput.Checked)
+                    {
+                        //Check_Value();
+                        Tinh_n();
+                        Tinh_Sn();
+                        //if (NhapE.Text == "") Tinh_E();
+                        lsE = List_E();
+                        if (lsE.Contains(E) || E == 65537)
+                        {
+                            Tinh_D();
+                            NhapN.Text = N.ToString();
+                            NhapE.Text = E.ToString();
+                            Sn_Text.Text = Sn.ToString();
+                            D_text.Text = D.ToString();
+                            privateKey_textBox.Text = D.ToString() + " ; " + N.ToString();
+                            PublicKey_textBox.Text = E.ToString() + " ; " + N.ToString();
+                            Do_Decrypt();
+                        }
+                        else { NhapE.Text = null; MessageBox.Show("Invalid E!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                    }
                 }
             }
         }
@@ -135,9 +154,11 @@ namespace RSA_Cryptool
             alert_Q.Visible = false;
             alert_M.Visible = false;
             alert_P.Visible = false;
+            alert_E.Visible = false;
             if (CipherTextBox.Text == "") { flag = false; alert_M.Visible = true; }
             if (NhapP.Text == "") { flag = false; alert_P.Visible = true; }
             if (NhapQ.Text == "") { flag = false; alert_Q.Visible = true; }
+            if (NhapE.Text == "") { flag = false; alert_E.Visible = true; }
             return flag;
         }
         #endregion
@@ -190,7 +211,8 @@ namespace RSA_Cryptool
         }
         private void Do_Decrypt()
         {
-            ciphertext = CipherTextBox.Text;
+            string trim = CipherTextBox.Text;
+            ciphertext = trim.Trim();
             //string[] a = ciphertext.Split(' ');
             //for(int i = 0; i < a.Length; i++) { C[i]=Convert.ToDouble(a[i]); }
             C = Convert_toDouble(ciphertext);
@@ -203,10 +225,6 @@ namespace RSA_Cryptool
                 g += ASCIIEncoding.ASCII.GetString(f.ToByteArray());
                 
             }
-            NhapN.Text = N.ToString();
-            Sn_Text.Text = Sn.ToString();
-            NhapE.Text = E.ToString();
-            D_text.Text = D.ToString();
             plainTextBox.Text = g.ToString();
             //string hexString = BitConverter.ToString(bytes);
             //hexString = hexString.Replace("-", " ");
@@ -221,10 +239,7 @@ namespace RSA_Cryptool
         #region Others
         private void NhapN_KeyPress(object sender, KeyPressEventArgs e) //number only
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+
         }
         #region Number Only
         private void NhapE_KeyPress(object sender, KeyPressEventArgs e) //number only
@@ -279,15 +294,17 @@ namespace RSA_Cryptool
             return ra;
         
         }
-        private void generateE_Click(object sender, EventArgs e)
+        
+
+        private void generateRandom()
         {
-            //EXtract_form_TxtBox();
             P = randomPrimeNum();
             do
             {
                 Q = randomPrimeNum();
             } while (Q == P);
-            /*bool Check_Prime_P_flag = Check_Prime(P);
+            /*EXtract_form_TxtBox();
+            bool Check_Prime_P_flag = Check_Prime(P);
             bool Check_Prime_Q_flag = Check_Prime(Q);
             if (!Check_Prime_P_flag || !Check_Prime_Q_flag)
             {
@@ -295,15 +312,14 @@ namespace RSA_Cryptool
             }
             else
             {
+               
             }*/
-
             Tinh_Sn();
             E = Generrate_E();
             NhapP.Text = P.ToString();
             NhapQ.Text = Q.ToString();
             NhapE.Text = E.ToString();
         }
-
 
         public BigInteger Generrate_E()
         {
@@ -320,20 +336,20 @@ namespace RSA_Cryptool
             return g;
 
         }
-        public BigInteger Tinh_E()
+        public List<BigInteger> List_E()
         {
-            
-            ulong k = 0;
+
+            Tinh_Sn();
+            List<BigInteger> e = new List<BigInteger>();
             for (ulong i = 2; i < Sn; i++)
             {
-                if (GCD((ulong)Sn, i) == 1)
+                if (GCD((ulong)Sn, i) == 1 && Check_STN(GCD((ulong)Sn, i)) == true)
                 {
-                    k = i;
-                    break;
+                    e.Add(i);
+
                 }
             }
-            E = (BigInteger)k;
-            return E;
+            return e;
         }
         public BigInteger Tinh_D()
         {
@@ -369,13 +385,17 @@ namespace RSA_Cryptool
             NhapE.Text = null;
             Sn_Text.Text = null;
             D_text.Text = null;
+            plainTextBox.Text = null;
+            privateKey_textBox.Text = null;
+            PublicKey_textBox.Text = null;
         }
         private void radio_HandInput_CheckedChanged(object sender, EventArgs e)
         {
+            textClear();
             NhapE.ReadOnly = false;
             NhapP.ReadOnly = false;
             NhapQ.ReadOnly = false;
-            generateE.Visible = false;
+            NhapE.Text = "65537";
         }
 
         private void radio_Random_CheckedChanged(object sender, EventArgs e)
@@ -385,23 +405,40 @@ namespace RSA_Cryptool
             NhapN.ReadOnly = true;
             NhapP.ReadOnly = true;
             NhapQ.ReadOnly = true;
-            generateE.Visible = true;
+            generateRandom();
+            Tinh_n();
+            Tinh_Sn();
+            Tinh_D();
+            NhapN.Text = N.ToString();
+            Sn_Text.Text = Sn.ToString();
+            D_text.Text = D.ToString();
+            privateKey_textBox.Text = D.ToString() + " ; " + N.ToString();
+            PublicKey_textBox.Text = E.ToString() + " ; " + N.ToString();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
             openFileDialog.ShowDialog();
-            string file = openFileDialog.FileName;
-            CipherTextBox.Text = File.ReadAllText(file);
+            try
+            {
+                string file = openFileDialog.FileName;
+                CipherTextBox.Text = File.ReadAllText(file);
+            }
+            catch { MessageBox.Show("file NOT selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void Export_butt_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog(); // Show the dialog.
             openFileDialog.ShowDialog();
-            string file = openFileDialog.FileName;
-            File.WriteAllText(file, plainTextBox.Text);
+            try
+            {
+                string file = openFileDialog.FileName;
+                File.WriteAllText(file, plainTextBox.Text);
+            }
+            catch { MessageBox.Show("file NOT selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         // Generates a random number within a range.      
